@@ -10,4 +10,4 @@ provider:
 
 functions:
   hello:
-    handler: src/app.default
+    handler: src/app.handler

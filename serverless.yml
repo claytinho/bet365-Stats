@@ -13,4 +13,4 @@ functions:
     handler: src/app.handler
     events:
       - schedule: cron(0/5 12-23 * * ? *)
-      - schedule: cron(0/5 3-4 * * ? *)
+      - schedule: cron(0/5 0-1 * * ? *)

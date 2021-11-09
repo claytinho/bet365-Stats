@@ -18,11 +18,9 @@ const apiBet365 = {
 
 const callApi = async (options) => axios.request(options);
 
-const api = () => {
-  setInterval(async () => {
-    const response = await callApi(apiSoccerFootball);
-    getFunnels(response.data);
-  }, 600000);
+const api = async () => {
+  const response = await callApi(apiSoccerFootball);
+  getFunnels(response.data);
 };
 
 const objArray = [

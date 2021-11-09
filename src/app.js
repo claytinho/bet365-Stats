@@ -131,4 +131,12 @@ const sendMsg = (texto) => {
   console.log(texto);
 };
 
-api();
+exports.handler = async (event) => {
+  // TODO implement
+  api();
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify("Hello from Lambda!"),
+  };
+  return response;
+};

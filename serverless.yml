@@ -1,0 +1,13 @@
+service: bet365-stats
+
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  region: us-west-2
+
+functions:
+  hello:
+    handler: src/app.default

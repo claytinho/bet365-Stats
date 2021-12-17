@@ -225,14 +225,14 @@ const sendMsg = (texto) =>
     )
     .catch((error) => console.log(error));
 
-bet365Signals();
+// bet365Signals();
 
-// exports.handler = async (event) => {
-//   // TODO implement
-//   await bet365Signals();
-//   const response = {
-//     statusCode: 200,
-//     body: JSON.stringify("Hello from Lambda!"),
-//   };
-//   return response;
-// };
+exports.handler = async (event) => {
+  // TODO implement
+  await bet365Signals();
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify("Hello from Lambda!"),
+  };
+  return response;
+};

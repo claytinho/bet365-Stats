@@ -38,7 +38,7 @@ const bet365Signals = async () => {
     Object.values(gamesUrls.data)
   );
   const messages = gamesToBetUrls.map(createMessage);
-  messages.forEach((s) => console.log(s));
+  // messages.forEach((s) => console.log(s));
 
   await sendMessagesSerially(messages);
 };
@@ -218,8 +218,9 @@ const sendMsg = (texto) =>
         text: texto,
       })
     )
-    .then((texto) => console.log(texto))
     .catch((error) => console.log(error));
+
+// bet365Signals();
 
 exports.handler = async (event) => {
   // TODO implement

@@ -167,7 +167,7 @@ const createMessage = (game) => {
   const cornerValue = game.odds.asianCornerValue ?? 0;
   const cornerOdd = game.odds.asianCornerOdd ?? 0;
   const overGoal = game.odds.goalOverValue ?? 0;
-  const overOdd = game.odds.overOdd ?? 0;
+  const overOdd = game.odds.goalOverOdd ?? 0;
   const linkMessage = game.game.url
     ? `LINK: https://www.bet365.com${game.game.url}`
     : "";

@@ -109,10 +109,7 @@ const filterAttacksDangerous = (arr) =>
     const appmAway = funnel.away.attacksDangerous / funnel.game.timer;
     const scoreHome = funnel.home.score - funnel.away.score;
     const scoreAway = funnel.away.score - funnel.home.score;
-    if (
-      (appmHome > 0.2 && scoreHome < 0.2) ||
-      (appmAway > 0.2 && scoreAway < 0.2)
-    )
+    if ((appmHome > 1 && scoreHome < 1) || (appmAway > 1 && scoreAway < 1))
       return true;
   });
 
@@ -123,11 +120,11 @@ const filterChanceGoal = (arr) =>
     const cgAway =
       parseInt(funnel.away.shootsTotal) + parseInt(funnel.away.cornersTotal);
     if (
-      (funnel.game.timer < 30 && (cgHome >= 1 || cgAway >= 1)) ||
+      (funnel.game.timer < 30 && (cgHome >= 10 || cgAway >= 10)) ||
       (funnel.game.timer >= 30 &&
         funnel.game.timer < 45 &&
-        (cgHome >= 1 || cgAway >= 1)) ||
-      (funnel.game.timer > 70 && (cgHome >= 1 || cgAway >= 1))
+        (cgHome >= 15 || cgAway >= 15)) ||
+      (funnel.game.timer > 70 && (cgHome >= 15 || cgAway >= 15))
     )
       return true;
     return false;

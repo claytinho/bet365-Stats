@@ -30,11 +30,12 @@ const callApi = async (options) =>
 const bet365Signals = async () => {
   const gamesInPlay = await getGamesInPlay();
   const gamesStatistics = getGamesStatistics(gamesInPlay.data);
-  const gamesToBet = filterGamesByStatistics(gamesStatistics);
+  const gamesWithAttacksDangerous = filterAttacksDangerous(gamesStatistics);
+  const gamesWithChanceOfGoal = filterChanceGoal(gamesWithAttacksDangerous);
 
   const gamesUrls = await getGamesUrls();
   const gamesToBetUrls = searchUrl(
-    gamesStatistics,
+    gamesWithChanceOfGoal,
     Object.values(gamesUrls.data)
   );
   const messages = gamesToBetUrls.map(createMessage);
@@ -98,19 +99,26 @@ const getStatisticsByTeam = (game, teamName) => ({
     parseInt(game[teamName].perf.goals_conceded_76_90[1] || 0),
 });
 
-const filterGamesByStatistics = (statistics) => {
-  const gamesWithAttacksDangerous = filterAttacksDangerous(statistics);
-  return filterChanceGoal(gamesWithAttacksDangerous);
-};
+// const filterGamesByStatistics = (statistics) => {
+//   const gamesWithAttacksDangerous = filterAttacksDangerous(statistics);
+//   return filterChanceGoal(gamesWithAttacksDangerous);
+// };
 
 const filterAttacksDangerous = (arr) =>
   arr.filter((funnel) => {
-    const appmHome = funnel.home.attacksDangerous / funnel.game.timer;
-    const appmAway = funnel.away.attacksDangerous / funnel.game.timer;
+    const appmHome =
+      parseInt(funnel.home.attacksDangerous) / parseInt(funnel.game.timer);
+    const appmAway =
+      parseInt(funnel.away.attacksDangerous) / parseInt(funnel.game.timer);
     const scoreHome = funnel.home.score - funnel.away.score;
     const scoreAway = funnel.away.score - funnel.home.score;
-    if ((appmHome > 1 && scoreHome < 1) || (appmAway > 1 && scoreAway < 1))
+
+    if (
+      (appmHome > 1 && scoreHome < 1 && scoreHome > -2) ||
+      (appmAway > 1 && scoreAway < 1 && scoreAway > -2)
+    )
       return true;
+    return false;
   });
 
 const filterChanceGoal = (arr) =>
@@ -217,14 +225,14 @@ const sendMsg = (texto) =>
     )
     .catch((error) => console.log(error));
 
-// bet365Signals();
+bet365Signals();
 
-exports.handler = async (event) => {
-  // TODO implement
-  await bet365Signals();
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify("Hello from Lambda!"),
-  };
-  return response;
-};
+// exports.handler = async (event) => {
+//   // TODO implement
+//   await bet365Signals();
+//   const response = {
+//     statusCode: 200,
+//     body: JSON.stringify("Hello from Lambda!"),
+//   };
+//   return response;
+// };

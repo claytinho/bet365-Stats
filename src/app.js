@@ -88,8 +88,9 @@ const getFunnels = async (a) => {
 };
 
 const callTelegram = async () => {
+  const responseUrl = await callApi(apiBet365);
   for (var i = 0; i < objArray.length; i++) {
-    await searchUrl(i);
+    await searchUrl(i, responseUrl);
 
     let texto = `${objArray[i].home} - APPM: ${objArray[i].apmHome.toFixed(
       2
@@ -105,9 +106,8 @@ const callTelegram = async () => {
   }
 };
 
-const searchUrl = async (i) => {
-  const response = await callApi(apiBet365);
-  const arr = Object.values(response.data);
+const searchUrl = async (i, responseUrl) => {
+  const arr = Object.values(responseUrl.data);
   for (var x = 0; x < arr.length; x++) {
     if (
       arr[x].homeTeam == objArray[i].home &&
@@ -129,15 +129,15 @@ const sendMsg = (texto) => {
   console.log(texto);
 };
 
-// const app = async () => await api();
-// app();
+const app = async () => await api();
+app();
 
-exports.handler = async (event) => {
-  // TODO implement
-  await api();
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify("Hello from Lambda!"),
-  };
-  return response;
-};
+// exports.handler = async (event) => {
+//   // TODO implement
+//   await api();
+//   const response = {
+//     statusCode: 200,
+//     body: JSON.stringify("Hello from Lambda!"),
+//   };
+//   return response;
+// };

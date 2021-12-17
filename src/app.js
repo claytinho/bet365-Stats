@@ -129,15 +129,15 @@ const sendMsg = (texto) => {
   console.log(texto);
 };
 
-const app = async () => await api();
-app();
+// const app = async () => await api();
+// app();
 
-// exports.handler = async (event) => {
-//   // TODO implement
-//   await api();
-//   const response = {
-//     statusCode: 200,
-//     body: JSON.stringify("Hello from Lambda!"),
-//   };
-//   return response;
-// };
+exports.handler = async (event) => {
+  // TODO implement
+  await api();
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify("Hello from Lambda!"),
+  };
+  return response;
+};

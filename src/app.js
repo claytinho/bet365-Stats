@@ -61,9 +61,9 @@ const getFunnels = async (a) => {
     const goalsTeamB = a.result[i].teamB.score.f;
     const goalsCap = goalsTeamA - goalsTeamB;
     if (
-      ((atacksTeamA >= 1 && cogTeamA >= 15) ||
-        (atacksTeamB >= 1 && cogTeamB >= 15)) &&
-      ((timing >= 30 && timing < 45) || (timing >= 70 && timing < 90)) &&
+      ((atacksTeamA >= 0 && cogTeamA >= 0) ||
+        (atacksTeamB >= 0 && cogTeamB >= 0)) &&
+      ((timing >= 0 && timing < 45) || (timing >= 50 && timing < 90)) &&
       goalsCap >= -1 &&
       goalsCap <= 1
     ) {
@@ -81,7 +81,7 @@ const getFunnels = async (a) => {
         time: timing,
       });
     } else {
-      console.log("jogo" + i + "fora do funil");
+      console.log("jogo " + i + " fora do funil");
     }
   }
   callTelegram();
@@ -128,6 +128,9 @@ const sendMsg = (texto) => {
   );
   console.log(texto);
 };
+
+// const app = async () => await api();
+// app();
 
 exports.handler = async (event) => {
   // TODO implement
